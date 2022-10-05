@@ -1,4 +1,4 @@
-package com.epam.epmcacm.resourceservice.exceptions;
+package com.epam.epmcacm.songservice.exceptions;
 
 public class ResourceInvalidTypeException extends  Exception{
 

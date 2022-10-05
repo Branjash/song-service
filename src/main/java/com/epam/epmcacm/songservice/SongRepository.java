@@ -1,6 +1,6 @@
-package com.epam.epmcacm.resourceservice;
+package com.epam.epmcacm.songservice;
 
-import com.epam.epmcacm.resourceservice.model.Song;
+import com.epam.epmcacm.songservice.model.Song;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
