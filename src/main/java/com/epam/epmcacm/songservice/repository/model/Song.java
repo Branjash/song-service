@@ -1,4 +1,6 @@
-package com.epam.epmcacm.songservice.model;
+package com.epam.epmcacm.songservice.repository.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -7,6 +9,7 @@ public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long id;
 
     private String name;
@@ -16,11 +19,34 @@ public class Song {
     private Long resourceId;
     private Long year;
 
+    public Song() {
+    }
+
+    public Song(long id, String name, String artist, String album, String length, Long resourceId, Long year) {
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+        this.album = album;
+        this.length = length;
+        this.resourceId = resourceId;
+        this.year = year;
+    }
+
+    public Song(Song song) {
+        this.id = song.getId();
+        this.name = song.getName();
+        this.artist = song.getArtist();
+        this.album = song.getAlbum();
+        this.length = song.getLength();
+        this.resourceId = song.getResourceId();
+        this.year = song.getYear();
+    }
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
