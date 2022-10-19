@@ -11,9 +11,11 @@ import java.util.List;
 
 @Service
 public class SongServiceImpl implements SongService {
+    private SongRepository songRepository;
 
-    @Autowired
-    SongRepository songRepository;
+    public SongServiceImpl(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
 
     @Override
     public Song saveSong(Song song) {
@@ -21,10 +23,10 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song updateSong(Long songId, Song song) {
-        Song songDB = songRepository.findById(songId).orElseThrow(() -> new ResourceNotFoundException());
-        updateSongIfChanged(song,songDB);
-        return songRepository.save(songDB);
+    public Song updateSong(Long songId, Song updatedSong) {
+        Song currentSongDB = songRepository.findById(songId).orElseThrow(() -> new ResourceNotFoundException());
+        updateSongIfChanged(updatedSong,currentSongDB);
+        return songRepository.save(currentSongDB);
     }
 
     @Override

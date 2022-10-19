@@ -3,12 +3,14 @@ package com.epam.epmcacm.songservice.controller;
 import com.epam.epmcacm.songservice.controller.SongController;
 import com.epam.epmcacm.songservice.repository.SongRepository;
 import com.epam.epmcacm.songservice.repository.model.Song;
+import com.epam.epmcacm.songservice.service.api.SongService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SongControllerTest {
 
     @MockBean
-    SongRepository songRepository;
+    SongService songService;
 
     @Autowired
     MockMvc mockMvc;
@@ -39,7 +41,7 @@ public class SongControllerTest {
     @Test
     public void getSongByIdTest_success() throws Exception {
 
-        Mockito.when(songRepository.findById(SONG.getId())).thenReturn(Optional.of(SONG));
+        Mockito.when(songService.getSongById(SONG.getId())).thenReturn(SONG);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/songs/1")
@@ -51,7 +53,7 @@ public class SongControllerTest {
                         .andExpect(jsonPath("$.album", is(SONG.getAlbum())))
                         .andExpect(jsonPath("$.length", is(SONG.getLength())))
                         .andExpect(jsonPath("$.resourceId", is(1)))
-                        .andExpect(jsonPath("$.year", is(1999)))
+                        .andExpect(jsonPath("$.year", is("1999")))
                         .andDo(MockMvcResultHandlers.print());
 
     }
@@ -59,13 +61,16 @@ public class SongControllerTest {
 //    @Test
 //    public void saveSongTest_success() throws Exception {
 //
-//        Mockito.when(songRepository.save(SONG)).thenReturn(SONG);
+//        Mockito.when(songService.saveSong(SONG)).thenReturn(SONG);
 //
 //        mockMvc.perform(MockMvcRequestBuilders
 //                        .post("/songs")
-//                        .content(this.mapper.writeValueAsString(SONG))
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                        .andExpect(status().isOk())''
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content(this.mapper.writeValueAsString(SONG)))
+//                        .andExpect(status().isOk())
+//                        .andExpect(content().json("{'id':1}"))
+//                        .andDo(MockMvcResultHandlers.print());
 //    }
 
     @Test
@@ -75,16 +80,15 @@ public class SongControllerTest {
         updatedSong.setName("Jezebel");
         updatedSong.setLength("5:00");
 
-        Mockito.when(songRepository.findById(SONG.getId())).thenReturn(Optional.of(SONG));
-        Mockito.when(songRepository.save(updatedSong)).thenReturn(updatedSong);
+        Mockito.when(songService.updateSong(SONG.getId(), updatedSong)).thenReturn(updatedSong);
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .put("/songs")
+                        .put("/songs/1")
                         .content(this.mapper.writeValueAsString(updatedSong))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
-                        .andExpect(jsonPath("$", notNullValue()))
+                        .andExpect(content().json("{'id':1}"))
                         .andDo(MockMvcResultHandlers.print());
 
     }

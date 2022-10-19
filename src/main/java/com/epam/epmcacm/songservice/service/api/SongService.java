@@ -8,7 +8,7 @@ public interface SongService {
 
     Song saveSong(Song song);
 
-    Song updateSong(Long songId, Song song);
+    Song updateSong(Long songId, Song newSong);
 
     Song getSongById(Long id);
 
