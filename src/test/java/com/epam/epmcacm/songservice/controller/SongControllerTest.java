@@ -20,8 +20,6 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(SongController.class)
@@ -36,7 +34,7 @@ public class SongControllerTest {
     @Autowired
     ObjectMapper mapper;
 
-    Song SONG = new Song(1l,"All Eyez On Me(ft. Big Syke)", "2Pac", "16 pieces", "4:34", 1l, 1999l);
+    Song SONG = new Song(1l,"All Eyez On Me(ft. Big Syke)", "2Pac", "16 pieces", "4:34", 1l, "1999");
 
     @Test
     public void getSongByIdTest_success() throws Exception {
@@ -73,7 +71,7 @@ public class SongControllerTest {
     @Test
     public void updateSongTest_success() throws Exception {
         Song updatedSong = new Song(SONG);
-        updatedSong.setYear(2000L);
+        updatedSong.setYear("2000");
         updatedSong.setName("Jezebel");
         updatedSong.setLength("5:00");
 

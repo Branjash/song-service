@@ -17,12 +17,12 @@ public class Song {
     private String album;
     private String length;
     private Long resourceId;
-    private Long year;
+    private String year;
 
     public Song() {
     }
 
-    public Song(long id, String name, String artist, String album, String length, Long resourceId, Long year) {
+    public Song(long id, String name, String artist, String album, String length, Long resourceId, String year) {
         this.id = id;
         this.name = name;
         this.artist = artist;
@@ -90,11 +90,11 @@ public class Song {
         this.resourceId = resourceId;
     }
 
-    public Long getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Long year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
