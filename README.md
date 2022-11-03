@@ -12,7 +12,7 @@
       ```bash
       mvnw clean package
       ```
-     NOTE! - **prerequiste is that you install docker engine on your machine, as well as *docker-compose* **
+     NOTE! - **prerequiste is that you install docker engine on your machine, as well as *docker-compose***
   
   2. Inside project root, build local docker image of the project(project already contains prepared `Dockerfile`
      ```bash
