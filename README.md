@@ -2,6 +2,12 @@
 
 ## Implements REST API CRUD service for Song record (metadata) management. Provides managing capabilities for maintaining some metadata about songs (artist, album, etc). It uses `postgresql` database for storing data.
 
+### Prerequisites: 
+
+- Docker engine installed on local machine
+- `docker-compose` from resource-service be triggered first for additional services required
+- OPTIONAL: `maven` installed on local machine, use embbeded wrapper instead
+
 ### Startup
 
   1. Since it is a maven project, first build it using your local installed maven or using maven wrapper inside the project
@@ -12,7 +18,6 @@
       ```bash
       mvnw clean package
       ```
-     NOTE! - **prerequiste is that you install docker engine on your machine, as well as *docker-compose***
   
   2. Inside project root, build local docker image of the project(project already contains prepared `Dockerfile`
      ```bash
